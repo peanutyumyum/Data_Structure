@@ -168,7 +168,7 @@ public class SinglyLinkedList {
         } else {
             Node print = head;
             for (int i = size; i > 0; --i) {
-                System.out.println(print.getData());
+                System.out.print(print.getData()+" ");
                 print = print.getNext();
             }
         }

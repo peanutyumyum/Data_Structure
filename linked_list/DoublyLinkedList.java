@@ -216,7 +216,7 @@ public class DoublyLinkedList {
         } else {
             Node print = head.getNext();
             for (int i = size; i > 0; i--) {
-                System.out.println(print.getData());
+                System.out.print(print.getData()+" ");
                 print = print.getNext();
             }
         }
