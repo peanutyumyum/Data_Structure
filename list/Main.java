@@ -98,7 +98,7 @@ public class Main {
         System.out.println(sl.removeFirst());	// 8
         System.out.println(sl.removeFirst());	// 9
         System.out.println(sl.removeFirst());	// 10
-        System.out.println(sl.removeFirst());	// -1
+        System.out.println(sl. removeFirst());	// -1
         System.out.println(sl.removeFirst());	// -1
 
         System.out.println(sl.getFirst());		// -1

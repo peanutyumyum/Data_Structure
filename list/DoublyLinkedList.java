@@ -24,31 +24,39 @@ public class DoublyLinkedList {
 
         /* [필수] 생성자 */
         public Node(int d) {
+            data = d;
+            next = null;
+            prev = null;
             // 구현
         }
 
         /* [필수] getData() */
         public int getData() {
+            return data;
             // 구현
         }
 
         /* [필수] getNext() */
         public Node getNext() {
+            return next;
             // 구현
         }
 
         /* [필수] getPrev() */
         public Node getPrev() {
+            return prev;
             // 구현
         }
 
         /* [필수] setNext() */
         public void setNext(Node n) {
+            next = n;
             // 구현
         }
 
         /* [필수] setPrev() */
         public void setPrev(Node n) {
+            prev = n;
             // 구현
         }
     }
@@ -78,16 +86,23 @@ public class DoublyLinkedList {
 
     /* [필수] 생성자 */
     public DoublyLinkedList() {
+        head = new Node(-1);
+        tail = new Node(-1);
+        head.setNext(tail);
+        tail.setPrev(head);
+        size = 0;
         // 구현
     }
 
     /* 필요시 구현 */
     public int size() {
+        return size;
         // 구현
     }
 
     /* 필요시 구현 */
     public boolean isEmpty() {
+        return size == 0;
         // 구현
     }
 
@@ -97,11 +112,21 @@ public class DoublyLinkedList {
      *   - 만약 없을 경우 -1 리턴
      */
     public int getFirst() {
+        if (size == 0) {
+            return -1;
+        } else {
+            return head.getNext().getData();
+        }
         // 구현
     }
 
     /* [필수] getLast() */
     public int getLast() {
+        if (size == 0) {
+            return -1;
+        } else {
+            return tail.getPrev().getData();
+        }
         // 구현
     }
 
@@ -111,7 +136,7 @@ public class DoublyLinkedList {
      *   - addBetween() operation 사용해서 구현
      */
     public void addFirst(int data) {
-        addBetween(???, ???, data);
+        addBetween(head, head.getNext(), data);
     }
 
     /*
@@ -119,7 +144,7 @@ public class DoublyLinkedList {
      *   - addBetween() operation 사용해서 구현
      */
     public void addLast(int data) {
-        addBetween(???, ???, data);
+        addBetween(tail.getPrev(), tail, data);
     }
 
     /*
@@ -127,7 +152,12 @@ public class DoublyLinkedList {
      *   - Node prev와 next 사이에 data를 추가해야 함
      */
     public void addBetween(Node prev, Node next, int data) {
-        // 구현
+        Node n = new Node(data);
+        prev.setNext(n);
+        n.setPrev(prev);
+        next.setPrev(n);
+        n.setNext(next);
+        ++size;
     }
 
     /*
@@ -137,8 +167,12 @@ public class DoublyLinkedList {
      *    - 만약 없을 경우 -1 리턴
      */
     public int removeFirst() {
-        // 구현
-        return remove(???);
+        if (size == 0) {
+            return -1;
+        } else {
+            int data = remove(head.getNext());
+            return data;
+        }
     }
 
     /*
@@ -146,8 +180,12 @@ public class DoublyLinkedList {
      *   - remove() operation 사용해서 구현
      */
     public int removeLast() {
-        // 구현
-        return remove(???);
+        if (size == 0) {
+            return -1;
+        } else {
+            int data = remove(tail.getPrev());
+            return data;
+        }
     }
 
     /*
@@ -156,7 +194,15 @@ public class DoublyLinkedList {
      *   - n이 가지고 있는 데이터를 리턴
      */
     public int remove(Node n) {
-        // 구현
+        Node remove_node = n;
+        int data = remove_node.getData();
+        remove_node.getNext().setPrev(remove_node.getPrev());
+        remove_node.getPrev().setNext(remove_node.getNext());
+        remove_node.setPrev(null);
+        remove_node.setNext(null);
+        remove_node = null;
+        --size;
+        return data;
     }
 
     /*
@@ -165,6 +211,15 @@ public class DoublyLinkedList {
      *   > 1 2 3 4 5
      */
     public void printList() {
+        if (size == 0) {
+            return ;
+        } else {
+            Node print = head.getNext();
+            for (int i = size; i > 0; i--) {
+                System.out.println(print.getData());
+                print = print.getNext();
+            }
+        }
         // 구현
     }
 }

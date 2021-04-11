@@ -95,7 +95,7 @@ public class SinglyLinkedList {
         if (head == null) {
             return -1;
         } else {
-            return head.data;
+            return head.getData();
         }
         // 구현
     }
@@ -105,7 +105,7 @@ public class SinglyLinkedList {
         if (tail == null) {
             return -1;
         } else {
-            return tail.data;
+            return tail.getData();
         }
         // 구현
     }
@@ -116,25 +116,27 @@ public class SinglyLinkedList {
      */
     public void addFirst(int data) {
         Node n = new Node(data);
-        n.next = head;
-        head = n;
-        if (head.next == null) {
-            tail = head;
+        if (size == 0) {
+            head = n;
+            tail = n;
+        } else {
+            n.setNext(head);
+            head = n;
         }
         ++size;
-        // 구현
     }
 
     /* [필수] addLast() */
     public void addLast(int data) {
         Node n = new Node(data);
-        n.next = tail;
-        tail = n;
-        if (tail.next == null) {
-            head = tail;
+        if (size == 0) {
+            head = n;
+            tail = n;
+        } else {
+            tail.setNext(n);
+            tail = n;
         }
         ++size;
-        // 구현
     }
 
     /*
@@ -147,12 +149,12 @@ public class SinglyLinkedList {
             return -1;
         } else {
             Node remove_node = head;
-            head.next = head;
-            int return_data = remove_node.data;
+            head = remove_node.getNext();
+            int return_data = remove_node.getData();
             remove_node = null;
+            --size;
             return return_data;
         }
-        // 구현
     }
 
     /*
@@ -161,6 +163,15 @@ public class SinglyLinkedList {
      *   > 1 2 3 4 5
      */
     public void printList() {
+        if (size == 0) {
+            return ;
+        } else {
+            Node print = head;
+            for (int i = size; i > 0; --i) {
+                System.out.println(print.getData());
+                print = print.getNext();
+            }
+        }
         // 구현
     }
 }
