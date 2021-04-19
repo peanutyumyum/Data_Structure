@@ -12,11 +12,31 @@ public class Main {
      *     - ex) (()()) >> True
      *     - ex2) (()(())()))() >> False
      */
-//    public static boolean checkMatching(String str) {
-//        // 이 stack으로 확인
-//        Stack s = new Stack();
-//        // 구현
-//    }
+   public static boolean checkMatching(String str) {
+       // 이 stack으로 확인
+       Stack s = new Stack();
+       String text = new String(str);
+       for (int i = 0; i < text.length(); i++) {
+           s.push(text.charAt(i));
+       }
+       char data = s.pop();
+       char data2 = s.pop();
+       if (s.pop() == ')') {
+           return false;
+       }
+       else if (data2 == ')') {
+           return true;
+       }
+
+       // 구현
+   }
+   private static void recursive(char d) {
+        recursive(d);
+        check();
+   }
+   private static void check() {
+
+   }
 
     public static void main(String[] args) {
         // TODO Auto-generated method stub
@@ -110,6 +130,7 @@ public class Main {
         s.popAll();     // 
         
         System.out.println(s.size());   // 0
+
         
         // 구현 확인할 때 주석 풀고 확인하면 됨
 //        System.out.println(checkMatching("(())()"));                                    // true

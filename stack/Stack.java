@@ -21,21 +21,26 @@ public class Stack {
         
         /* [필수] 생성자 */
         public Node(char d) {
+            data = d;
+            next = null;
             // 구현
         }
         
         /* [필수] getData() */
         public char getData() {
+            return data;
             // 구현
         }
         
         /* [필수] getNext() */
         public Node getNext() {
+            return next;
             // 구현
         }
         
         /* [필수] setNext() */
         public void setNext(Node n) {
+            next = n;
             // 구현
         }
     }
@@ -60,16 +65,20 @@ public class Stack {
     
     /* [필수] 생성자 */
     public Stack() {
+        top =  null;
+        size = 0;
         // 구현
     }
     
     /* [필수] size() */
     public int size() {
+        return size;
         // 구현
     }
     
     /* [필수] isEmpty() */
     public boolean isEmpty() {
+        return size == 0;
         // 구현
     }
     
@@ -78,6 +87,17 @@ public class Stack {
      *    - 데이터를 입력받아서 stack의 제일 위에 추가
      */
     public void push(char data) {
+        if (isEmpty()) {
+            Node stack = new Node(data);
+            top = stack;
+            size++;
+        } else {
+            Node stack = new Node(data);
+            stack.setNext(top);
+            top = stack;
+            size++;
+        }
+
         // 구현
     }
     
@@ -87,6 +107,17 @@ public class Stack {
      *    - 만약 없을 경우 '-' 리턴
      */
     public char pop() {
+        if (isEmpty()) {
+            return '-';
+        } else {
+            Node stack = top;
+            char stack_data = top.getData();
+            top = stack.getNext();
+            stack = null;
+            size--;
+            return stack_data;
+        }
+
         // 구현
     }
     
@@ -96,6 +127,11 @@ public class Stack {
      *  - 만약 없을 경우 '-' 리턴
      */
     public char top() {
+        if (isEmpty()) {
+            return '-';
+        } else {
+            return top.getData();
+        }
         // 구현
     }
     
@@ -107,6 +143,13 @@ public class Stack {
      *      > 1 2 3 4 5 
      */
     public void popAll() {
+        while (size() != 0) {
+            if (size() == 1) {
+                System.out.println(pop());
+            } else {
+                System.out.print(pop() + " ");
+            }
+        }
         // 구현
     }
 }
