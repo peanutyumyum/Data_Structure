@@ -100,35 +100,48 @@ public class BinarySearchTree {
      */
     public void add(int data) {
         if (size() == 0) {
-            Node tree = new Node(data);
-            root = tree;
+            Node new_tree = new Node(data);
+            root = new_tree;
             size++;
-        }
-        else {
-            Node tree = new Node(data);
-            if (root.getData() > data) {
-                Node right_node = root.getLeft();
-                if (root.getLeft() != null & root.getLeft().getData() > data) {
-
+        } else {
+            Node new_tree = new Node(data);
+            Node target_node = root;
+            boolean search_time = true;
+            while (search_time) {
+                if (new_tree.getData() > target_node.getData()) {
+                    if (target_node.getRight() == null) {
+                        new_tree.setParent(target_node);
+                        target_node.setRight(new_tree);
+                        size++;
+                        search_time = false;
+                    } else {
+                        target_node = target_node.getRight();
+                    }
+                } else if (new_tree.getData() < target_node.getData()) {
+                    if (target_node.getLeft() == null) {
+                        new_tree.setParent(target_node);
+                        target_node.setLeft(new_tree);
+                        size++;
+                        search_time = false;
+                    } else {
+                        target_node = target_node.getLeft();
+                    }
+                } else {
+                    new_tree = null;
+                    // tree에 중복되는 data가 있을 경우 새로 add 하려는 data를 쓰레기 처리함
                 }
             }
         }
     }
 
-    public Node scan(Node n, int d) {
-        if (n.getLeft() == null & n.getRight() == null) {
-            return n;
-        } else {
-            n.getData();
-        }
-    }
+
     
     public Node rightMost(Node n) {
-
+        return n;
     }
     
     public Node leftMost(Node n) {
-
+        return n;
     }
     
     /*
@@ -141,7 +154,7 @@ public class BinarySearchTree {
      *    - data가 없으면 -1을 return
      */
     public int remove(int data) {
-
+        return data;
     }
     
     /*
@@ -150,7 +163,18 @@ public class BinarySearchTree {
      *    - 출력 예시로 제공
      */
     public void preorder(Node n) {
+        if (n == null) {
+            System.out.print("");
+            return;
+        } else if (n.getLeft() == null) {
 
+            // 왼쪽에 트리가 없으면 끝
+        } else if (n.getLeft() != null) {
+            System.out.print(n.getData() + " ");
+            preorder(n.getLeft());
+            preorder(n.getRight());
+            return;
+        }
     }
     
     /*
@@ -159,7 +183,18 @@ public class BinarySearchTree {
      *    - 출력 예시로 제공 (숫자가 정렬되어서 출력되는게 정상입니다)
      */
     public void inorder(Node n) {
-
+        if (n == null) {
+            System.out.print("");
+            return;
+        } else if (n.getLeft() == null) {
+            System.out.print(n.getData() + " ");
+            // 왼쪽에 트리가 없으면 끝
+        } else {
+            inorder(n.getLeft());
+            System.out.print(n.getData() + " ");
+            preorder(n.getRight());
+            return;
+        }
     }
     
     /*
