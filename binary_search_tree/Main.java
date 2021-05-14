@@ -6,7 +6,7 @@ public class Main {
         
         bst.preorder(bst.getRoot());    // 
         System.out.println();
-        
+
         bst.add(44);
         bst.add(78);
         bst.add(50);
@@ -19,7 +19,7 @@ public class Main {
         bst.add(48);
         bst.add(88);
         bst.add(20);
-        
+
         bst.preorder(bst.getRoot());    // 44 17 78 50 48 88 
         System.out.println();
         bst.inorder(bst.getRoot());     // 17 44 48 50 78 88 

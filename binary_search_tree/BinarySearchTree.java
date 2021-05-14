@@ -108,26 +108,32 @@ public class BinarySearchTree {
             Node target_node = root;
             boolean search_time = true;
             while (search_time) {
-                if (new_tree.getData() > target_node.getData()) {
+                if (data > target_node.getData()) {
                     if (target_node.getRight() == null) {
                         new_tree.setParent(target_node);
                         target_node.setRight(new_tree);
                         size++;
                         search_time = false;
+                        break;
                     } else {
                         target_node = target_node.getRight();
+                        continue;
                     }
-                } else if (new_tree.getData() < target_node.getData()) {
+                } else if (data < target_node.getData()) {
                     if (target_node.getLeft() == null) {
                         new_tree.setParent(target_node);
                         target_node.setLeft(new_tree);
                         size++;
                         search_time = false;
+                        break;
                     } else {
                         target_node = target_node.getLeft();
+                        continue;
                     }
                 } else {
                     new_tree = null;
+                    search_time = false;
+                    break;
                     // tree에 중복되는 data가 있을 경우 새로 add 하려는 data를 쓰레기 처리함
                 }
             }
@@ -166,14 +172,17 @@ public class BinarySearchTree {
         if (n == null) {
             System.out.print("");
             return;
-        } else if (n.getLeft() == null) {
-
-            // 왼쪽에 트리가 없으면 끝
-        } else if (n.getLeft() != null) {
+        } else {
             System.out.print(n.getData() + " ");
-            preorder(n.getLeft());
-            preorder(n.getRight());
-            return;
+            if (n.getLeft() == null) {
+                preorder(n.getRight());
+                return;
+                // 왼쪽에 트리가 없으면 끝
+            } else if (n.getLeft() != null) {
+                preorder(n.getLeft());
+                preorder(n.getRight());
+                return;
+            }
         }
     }
     
@@ -186,14 +195,16 @@ public class BinarySearchTree {
         if (n == null) {
             System.out.print("");
             return;
-        } else if (n.getLeft() == null) {
-            System.out.print(n.getData() + " ");
-            // 왼쪽에 트리가 없으면 끝
         } else {
-            inorder(n.getLeft());
-            System.out.print(n.getData() + " ");
-            preorder(n.getRight());
-            return;
+            if (n.getLeft() == null) {
+                System.out.print(n.getData() + " ");
+                inorder(n.getRight());
+            } else {
+                inorder(n.getLeft());
+                System.out.print(n.getData() + " ");
+                inorder(n.getRight());
+                return;
+            }
         }
     }
     
