@@ -131,6 +131,20 @@ public class Heap {
      *  - 추가할 데이터가 parent보다 크면 위쪽으로 swap을 재귀적으로 반복
      */
     public void add(int data) {
+        if (size() == 0) {
+            Node heap = new Node(data);
+            root = heap;
+        } else {
+            Node parent_node = getNodeByIndex((size() + 1) / 2);
+            Node heap = new Node(data);
+            heap.setParent(parent_node);
+            if ((size() + 1) % 2 == 1) {
+                parent_node.setRight(heap);
+            } else if ((size() + 1) % 2 == 0) {
+                parent_node.setLeft(heap);
+            }
+        }
+        size++;
         // 구현
     }
     
@@ -140,6 +154,14 @@ public class Heap {
      *  - swap했다면 재귀적으로 반복, 아니면 종료
      */
     public void swapUp(Node n) {
+        if (n.getData() < n.getParent().getData()) {
+            return;
+        } else if (n.getData() > n.getParent().getData()) {
+            int up_data = n.getData();
+            n.setData(n.getParent().getData());
+            n.getParent().setData(up_data);
+            swapUp(n.getParent());
+        }
         // 구현
     }
     
