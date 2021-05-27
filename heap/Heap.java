@@ -143,6 +143,7 @@ public class Heap {
             } else if ((size() + 1) % 2 == 0) {
                 parent_node.setLeft(heap);
             }
+            swapUp(heap);
         }
         size++;
         // 구현
@@ -175,6 +176,34 @@ public class Heap {
      *    - data가 없으면 -1을 return
      */
     public int remove() {
+        if (size() == 0) {
+            return -1;
+        } else if (size() == 1) {
+            int remove_data = root.getData();
+            root = null;
+            size--;
+            return remove_data;
+        } else {
+            int remove_data = root.getData();
+            Node parent_node = getNodeByIndex((size() + 1) / 2);
+            if ((size() + 1) % 2 == 1) {
+                root.setData(parent_node.getRight().getData());
+                parent_node.getRight().setData(remove_data);
+                parent_node.getRight().setParent(null);
+                parent_node.setRight(null);
+                size--;
+                swapDown(root);
+                return remove_data;
+            } else {
+                root.setData(parent_node.getLeft().getData());
+                parent_node.getLeft().setData(remove_data);
+                parent_node.getLeft().setParent(null);
+                parent_node.setLeft(null);
+                size--;
+                swapDown(root);
+                return remove_data;
+            }
+        }
         // 구현
     }
     
@@ -185,6 +214,19 @@ public class Heap {
      *  - swap했다면 재귀적으로 반복, 아니면 종료
      */
     public void swapDown(Node n) {
+        if (n.getData() > n.getLeft().getData() && n.getData() > n.getRight().getData()) {
+            return;
+        } else if (n.getRight().getData() > n.getLeft().getData()) {
+            int down_data = n.getData();
+            n.setData(n.getRight().getData());
+            n.getRight().setData(down_data);
+            swapDown(n.getRight());
+        } else if (n.getRight().getData() < n.getLeft().getData()) {
+            int down_data = n.getData();
+            n.setData(n.getLeft().getData());
+            n.getLeft().setData(down_data);
+            swapDown(n.getLeft());
+        }
         // 구현
     }
     
