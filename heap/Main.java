@@ -2,13 +2,13 @@ package heap;
 
 public class Main {
     
-//    public static void heapSort(Heap h) {
-//        while (h.size() > 0) {
-//            System.out.print(h.remove());
-//            System.out.print(" ");
-//        }
-//        System.out.println();
-//    }
+    public static void heapSort(Heap h) {
+        while (h.size() > 0) {
+            System.out.print(h.remove());
+            System.out.print(" ");
+        }
+        System.out.println();
+    }
 
     public static void main(String[] args) {
         // TODO Auto-generated method stub
@@ -52,7 +52,7 @@ public class Main {
         
         // 동일한 결과가 나와야 필수 operation 구현을 성공했다고 생각하시면 되겠습니다.
         
-//        heapSort(h);                        // 10 9 8 7 6 5 4 3 2 1
+        heapSort(h);                        // 10 9 8 7 6 5 4 3 2 1
     }
 
 }

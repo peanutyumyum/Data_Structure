@@ -134,7 +134,17 @@ public class Heap {
         if (size() == 0) {
             Node heap = new Node(data);
             root = heap;
-        } else {
+        } else if (size() == 1 || size() == 2) {
+            Node parent_node = root;
+            Node heap = new Node(data);
+            heap.setParent(parent_node);
+            if ((size() + 1) % 2 == 1) {
+                parent_node.setRight(heap);
+            } else if ((size() + 1) % 2 == 0) {
+                parent_node.setLeft(heap);
+            }
+            swapUp(heap);
+        } else if (size() > 2) {
             Node parent_node = getNodeByIndex((size() + 1) / 2);
             Node heap = new Node(data);
             heap.setParent(parent_node);
@@ -155,7 +165,9 @@ public class Heap {
      *  - swap했다면 재귀적으로 반복, 아니면 종료
      */
     public void swapUp(Node n) {
-        if (n.getData() < n.getParent().getData()) {
+        if (n == root) {
+            return;
+        } else if (n.getData() < n.getParent().getData()) {
             return;
         } else if (n.getData() > n.getParent().getData()) {
             int up_data = n.getData();
@@ -185,8 +197,8 @@ public class Heap {
             return remove_data;
         } else {
             int remove_data = root.getData();
-            Node parent_node = getNodeByIndex((size() + 1) / 2);
-            if ((size() + 1) % 2 == 1) {
+            Node parent_node = getNodeByIndex(size() / 2);
+            if (size() % 2 == 1) {
                 root.setData(parent_node.getRight().getData());
                 parent_node.getRight().setData(remove_data);
                 parent_node.getRight().setParent(null);
@@ -214,7 +226,9 @@ public class Heap {
      *  - swap했다면 재귀적으로 반복, 아니면 종료
      */
     public void swapDown(Node n) {
-        if (n.getData() > n.getLeft().getData() && n.getData() > n.getRight().getData()) {
+        if (n.getLeft() == null || n.getRight() == null) {
+            return;
+        } else if (n.getData() > n.getLeft().getData() && n.getData() > n.getRight().getData()) {
             return;
         } else if (n.getRight().getData() > n.getLeft().getData()) {
             int down_data = n.getData();
